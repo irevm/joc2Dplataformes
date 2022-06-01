@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
     private float dirX;
     private float movementSpeed = 7f;
-    private float jumpSpeed = 5f;
+    private float jumpSpeed = 7f;
     private Rigidbody2D rb;
     private SpriteRenderer sprRend;
     private BoxCollider2D col;
@@ -82,7 +82,7 @@ public class PlayerManager : MonoBehaviour
         if (col.gameObject.CompareTag("Item"))
         {
             numItems++;
-            //tItems.text = "Items: " + numItems;
+            tItems.text = "Items: " + numItems;
             Destroy(col.gameObject);
         }
 
