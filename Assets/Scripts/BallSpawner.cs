@@ -22,7 +22,7 @@ public class BallSpawner : MonoBehaviour
             instantiateBall();
         nBalls++;
 
-        if (this.transform.position.y < -20)
+        if (itemBall.transform.position.y < -20)
         {
             Destroy(this);
             nBalls--;
