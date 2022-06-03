@@ -31,4 +31,5 @@ ehthumbs.db
 Thumbs.db
 
 UserSettings/Layouts/default-2021.dwlt
-Logs/*
+UserSettings/
+Logs/
