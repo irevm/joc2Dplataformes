@@ -92,8 +92,6 @@ public class PlayerManager : MonoBehaviour
             Destroy(col.gameObject);
         }
 
-
-
     }
 
     bool IsGrounded(){        
@@ -124,6 +122,15 @@ public class PlayerManager : MonoBehaviour
 
         if (col.gameObject.CompareTag("Trap")){
             KillPlayer();
+        }
+
+        if (col.gameObject.CompareTag("Finish")){
+            if(SceneManager.GetActiveScene().buildIndex<4){
+                rb.bodyType = RigidbodyType2D.Static;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+            } else {
+                SceneManager.LoadScene(1);
+            }
         }
 
     }
