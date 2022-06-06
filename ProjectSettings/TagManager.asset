@@ -8,6 +8,8 @@ TagManager:
   - Trap
   - itemOptions
   - itemPlay
+  - SoundManager
+  - GameManager
   layers:
   - Default
   - TransparentFX

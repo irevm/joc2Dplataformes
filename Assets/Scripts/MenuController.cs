@@ -14,8 +14,8 @@ public class MenuController : MonoBehaviour
     private BoxCollider2D col;
     public LayerMask jumpableGround;
     private Animator anim;
-    public Text tItems;
-    private int numItems = 0;
+    //public Text tItems;
+    //private int numItems = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,8 @@ public class MenuController : MonoBehaviour
         anim = GetComponent<Animator>();
         // tItems = GetComponent<TMPro.TextMeshProUGUI>();
 
-        numItems = 0;
-        tItems.text = "Items: " + numItems;
+        //numItems = 0;
+        //tItems.text = "Items: " + numItems;
 
     }
 
@@ -50,9 +50,7 @@ public class MenuController : MonoBehaviour
         if (IsGrounded() && Input.GetKeyDown("space"))
         {
             rb.velocity = new Vector2(0, jumpSpeed); //increment en 0 (no modificar velocitat x)
-        }
-
-        
+        }        
 
         updateAnimation();
     }
@@ -92,15 +90,10 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    
+    bool IsGrounded(){
 
-    bool IsGrounded()
-    {
-
-        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, .1f, jumpableGround); //centre des meu col.lider, dimensions caixa, punt origen, direcció, angle 
+        return Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, .1f, jumpableGround); //centre des meu col.lider, dimensions caixa, punt origen, direcciï¿½, angle 
     }
-
-    
 
     void RestartLevel()
     {
@@ -117,14 +110,6 @@ public class MenuController : MonoBehaviour
         if (col.gameObject.CompareTag("itemPlay"))
         {
             SceneManager.LoadScene(3);
-
-
-
-
-
         }
-
-
-
     }
 }

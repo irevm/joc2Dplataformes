@@ -13,9 +13,11 @@ public class PlayerManager : MonoBehaviour
     private SpriteRenderer sprRend;
     private BoxCollider2D col;
     public LayerMask jumpableGround;
+    private SoundManager sndManager;
+    private GameManager gmManager;
     private Animator anim;
     public Text tItems;
-    private int numItems = 0;
+    //private int numItems = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +27,14 @@ public class PlayerManager : MonoBehaviour
         sprRend = GetComponent<SpriteRenderer>();
         col = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
-       // tItems = GetComponent<TMPro.TextMeshProUGUI>();
-
-        numItems = 0;
-        tItems.text = "Items: " + numItems;
+        gmManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        sndManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+       
+        if (sndManager.isMusicEnabled)       
+            sndManager.PlayMusic(1);
+        sndManager.PlayFx(4);       
+       
+        tItems.text = "Items: " + gmManager.numItems;
 
     }
 
@@ -45,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         if(IsGrounded() && Input.GetKeyDown("space")) {
+            sndManager.PlayFx(0);
             rb.velocity = new Vector2(0, jumpSpeed); //increment en 0 (no modificar velocitat x)
         }
 
@@ -66,6 +73,8 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        //print(rb.bodyType);
+       
         if(rb.velocity.y > 0.01f){
             anim.SetBool("jump", true);
             anim.SetBool("fall", false);
@@ -76,13 +85,14 @@ public class PlayerManager : MonoBehaviour
             anim.SetBool("jump", false);
             anim.SetBool("fall", false);
         }
+        
     }
 
     void OnCollisionEnter2D(Collision2D col){
         if (col.gameObject.CompareTag("Item"))
         {
-            numItems++;
-            tItems.text = "Items: " + numItems;
+            gmManager.numItems++;
+            tItems.text = "Items: " + gmManager.numItems;
             Destroy(col.gameObject);
         }
 
@@ -100,6 +110,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     void KillPlayer(){
+        sndManager.PlayFx(3);
         anim.SetTrigger("dead");
         rb.bodyType = RigidbodyType2D.Static;
         Invoke("RestartLevel", 2f); //Nom funció a executar i temps d'espera
@@ -111,9 +122,10 @@ public class PlayerManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col){
         if (col.gameObject.CompareTag("Item")){
+            sndManager.PlayFx(1);
             //Incrementar comptador items
-            numItems ++;
-            tItems.text = "Items: " + numItems;
+            gmManager.numItems ++;
+            tItems.text = "Items: " + gmManager.numItems;
             //Recollir objecte
             col.GetComponent<Animator>().SetTrigger("collected");
             //Destruir objecte
@@ -125,13 +137,22 @@ public class PlayerManager : MonoBehaviour
         }
 
         if (col.gameObject.CompareTag("Finish")){
-            if(SceneManager.GetActiveScene().buildIndex<4){
-                rb.bodyType = RigidbodyType2D.Static;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-            } else {
-                SceneManager.LoadScene(1);
-            }
+            sndManager.PlayFx(2);
+
+            rb.bodyType = RigidbodyType2D.Static; //Mogut abans des timeout?
+            Invoke("nextLevel", 2f);            
+                        
         }
 
+    }
+
+    void nextLevel(){
+         
+        if(SceneManager.GetActiveScene().buildIndex < 5){   
+            //rb.bodyType = RigidbodyType2D.Static;       
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        } else {
+            SceneManager.LoadScene(1);
+        }
     }
 }
