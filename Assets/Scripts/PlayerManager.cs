@@ -72,8 +72,6 @@ public class PlayerManager : MonoBehaviour
                 anim.SetBool("run", false);
             }
         }
-
-        //print(rb.bodyType);
        
         if(rb.velocity.y > 0.01f){
             anim.SetBool("jump", true);

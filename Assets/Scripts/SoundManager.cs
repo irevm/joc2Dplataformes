@@ -35,6 +35,12 @@ public class SoundManager : MonoBehaviour
             isMusicEnabled = false;
         }
 
+        if(PlayerPrefs.GetInt("fx") == 1){
+            isFxEnabled = true;
+        } else {
+            isFxEnabled = false;
+        }
+
         DontDestroyOnLoad(this.gameObject); //Perquè no s'elimini es game object, per evitar talls de so en canviar escena
         PlayMusic(0);
     }
@@ -51,13 +57,11 @@ public class SoundManager : MonoBehaviour
             asMusic.enabled = true;
             asMusic.loop = true;
             asMusic.Play();
-        }
+        } 
     }
 
     public void PlayFx(int i) {
-
-        print(isFxEnabled);
-
+        
         if(isFxEnabled){
 
             if(i==0)
@@ -70,8 +74,6 @@ public class SoundManager : MonoBehaviour
                 asFx.clip = deadFx;
             else
                 asFx.clip = spawnFx;
-        
-            
             asFx.enabled = true;
             asFx.loop = false;
             asFx.Play();
