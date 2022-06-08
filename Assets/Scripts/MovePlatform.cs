@@ -6,7 +6,7 @@ public class MovePlatform : MonoBehaviour
 {
     public GameObject platformPathStart;
     public GameObject platformPathEnd;
-    private float speed = 1f;
+    public float speed;
     private Vector3 startPosition;
     private Vector3 endPosition;
 

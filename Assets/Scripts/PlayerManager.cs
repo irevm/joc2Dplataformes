@@ -138,7 +138,7 @@ public class PlayerManager : MonoBehaviour
             sndManager.PlayFx(2);
 
             rb.bodyType = RigidbodyType2D.Static; //Mogut abans des timeout?
-            Invoke("nextLevel", 2f);            
+            Invoke("nextLevel", 1.5f);            
                         
         }
 
@@ -146,7 +146,7 @@ public class PlayerManager : MonoBehaviour
 
     void nextLevel(){
          
-        if(SceneManager.GetActiveScene().buildIndex < 5){   
+        if(SceneManager.GetActiveScene().buildIndex < 6){   
             //rb.bodyType = RigidbodyType2D.Static;       
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         } else {
