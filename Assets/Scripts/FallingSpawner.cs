@@ -6,7 +6,7 @@ public class FallingSpawner : MonoBehaviour
 {
     public GameObject fallingItem;
     public GameObject fallingTrap;
-    private float spawnRate = 5f;
+    private float spawnRate = 10f;
     private float nextSpawn=0;
     private bool hasSpawned;
 

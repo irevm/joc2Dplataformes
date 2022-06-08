@@ -146,7 +146,7 @@ public class PlayerManager : MonoBehaviour
 
     void nextLevel(){
          
-        if(SceneManager.GetActiveScene().buildIndex < 6){   
+        if(SceneManager.GetActiveScene().buildIndex < 7){   
             //rb.bodyType = RigidbodyType2D.Static;       
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         } else {
